@@ -26,6 +26,73 @@ type: section
 ### What isn't clear about the current material?
 
 
+Git
+========================================================
+type: section
+
+![xkcd on git](figure/git.png)
+
+Git Tools
+========================================================
+
+![Hierarchy of git tools](figure/GitHierarchy.png)
+
+Using Git 
+========================================================
+
+![Create a repo on GitHub](figure/Github_vs_git_easy_1.png)
+
+Using Git 
+========================================================
+
+![Clone the repo to your computer](figure/Github_vs_git_easy_2.png)
+
+Using Git 
+========================================================
+
+![Make some changes](figure/Github_vs_git_easy_3.png)
+
+Using Git 
+========================================================
+
+![Add changed files to git](figure/Github_vs_git_easy_4.png)
+
+Using Git 
+========================================================
+
+![Commit your changes](figure/Github_vs_git_easy_5.png)
+
+Using Git 
+========================================================
+
+![Push changes to GitHub](figure/Github_vs_git_easy_6.png)
+
+Using Git 
+========================================================
+
+![Clone the repo to a different computer](figure/Github_vs_git_easy_7.png)
+
+Using Git 
+========================================================
+
+![Make changes and commit them](figure/Github_vs_git_easy_8.png)
+
+Using Git 
+========================================================
+
+![Push changes to GitHub](figure/Github_vs_git_easy_9.png)
+
+Using Git 
+========================================================
+
+![Pull changes from GitHub](figure/Github_vs_git_easy_10.png)
+
+Git in RStudio
+========================================================
+
+
+
+
 R Coding Style
 ========================================================
 type: prompt
