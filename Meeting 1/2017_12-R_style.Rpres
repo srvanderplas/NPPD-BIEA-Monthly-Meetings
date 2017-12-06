@@ -1,8 +1,19 @@
-December 2017 - R Style Guide
+December 2017 - Git, R Style Guide
 ========================================================
 author: Susan VanderPlas
 date: 2017-12-04
 autosize: true
+transition: fade
+
+Progress Report
+========================================================
+type: section
+
+### How's it going so far?
+
+As of Monday, 12 people have completed Course 1 and one person has completed Course 2.
+
+Average progress on Course 2 is `r sprintf("%.1f%%", mean(c(0, 0, 57, 42, 89, 37, 67, 62, 62, 68, 16, 82, 76)))`.
 
 Progress Report
 ========================================================
@@ -19,12 +30,14 @@ Average progress on Course 2 is `r sprintf("%.1f%%", mean(c(0, 0, 57, 42, 89, 37
 (Vulcan mind meld isn't an option, unfortunately)
 
 
-Questions
+Outline
 ========================================================
 type: section
 
-### What isn't clear about the current material?
-
+- Git vs. GitHub vs. Git BASH
+- Git, GitHub, and RStudio
+- Q&A
+- R Coding Style Conventions
 
 Git
 ========================================================
@@ -37,59 +50,199 @@ Git Tools
 
 ![Hierarchy of git tools](figure/GitHierarchy.png)
 
-Using Git 
+Using Git and GitHub
 ========================================================
 
 ![Create a repo on GitHub](figure/Github_vs_git_easy_1.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Clone the repo to your computer](figure/Github_vs_git_easy_2.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Make some changes](figure/Github_vs_git_easy_3.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Add changed files to git](figure/Github_vs_git_easy_4.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Commit your changes](figure/Github_vs_git_easy_5.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Push changes to GitHub](figure/Github_vs_git_easy_6.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Clone the repo to a different computer](figure/Github_vs_git_easy_7.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Make changes and commit them](figure/Github_vs_git_easy_8.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Push changes to GitHub](figure/Github_vs_git_easy_9.png)
 
-Using Git 
+Using Git and GitHub 
 ========================================================
 
 ![Pull changes from GitHub](figure/Github_vs_git_easy_10.png)
 
+
 Git in RStudio
 ========================================================
+type: section
 
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_1.PNG)
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_2.PNG)
+
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_3.PNG)
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_4.PNG)
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_5.PNG)
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_6.PNG)
+
+Git in RStudio - Clone a Repo
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_7.PNG)
+
+
+Git in RStudio - RStudio Project
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_8.PNG)
+
+
+Git in RStudio - Make Changes
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_8.PNG)
+
+Git in RStudio - Stage Changes
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_8a.PNG)
+
+Git in RStudio - Commit Changes
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_9.PNG)
+
+Git in RStudio - Commit Message
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_10.PNG)
+
+Git in RStudio - Commit Changes
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_11.PNG)
+
+Git in RStudio - Push
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_12.PNG)
+
+
+Git in RStudio - Push (alt version)
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_12a.PNG)
+
+
+Git in RStudio - Push
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_13.PNG)
+
+
+Git in RStudio - Push complete!
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_14.PNG)
+
+
+Git in RStudio - History
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_15.PNG)
+
+
+Git in RStudio - History
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_16.PNG)
+
+
+Git in RStudio - Pull
+========================================================
+
+![Clone a Repository in RStudio](figure/Git_RStudio_17.PNG)
+
+Git in RStudio - Tips
+========================================================
+
+- When you open a project, pull before you make any changes
+- One commit for each incremental improvement or set of changes that accomplish a single goal
+- Push often
+- Pull often (if multiple computers or collaborators)
+- google any error messages you get!    
+GitHub has great documentation!
+
+
+Git Guides
+========================================================
+
+- [Configuring git on a new computer](http://happygitwithr.com/hello-git.html#hello-git)
+- [Other git clients](http://happygitwithr.com/git-client.html) - if RStudio's git interface bugs out or is slow
+- [Connecting to GitHub from your computer](http://happygitwithr.com/push-pull-github.html#am-i-really-going-to-type-github-username-and-password-on-each-push)
+- [Setting up SSH Keys](http://happygitwithr.com/ssh-keys.html) - so you don't have to type your github username/password every time
+- [RStudio and Git/GitHub](http://happygitwithr.com/rstudio-git-github.html)
+- [New Project Workflow](http://happygitwithr.com/new-github-first.html)
+- [Existing Project Workflow](http://happygitwithr.com/existing-github-first.html)
+- [Fixing unfixable problems](http://happygitwithr.com/burn.html)
+
+
+Questions
+========================================================
+type: section
+
+### What isn't clear about the current material?
 
 
 
@@ -106,16 +259,18 @@ R Coding Style
 incremental: true
 
 * File Names end in .R
-* Variables: `variableName`
+* Variables: `variableName` ... should be descriptive
 * Functions: `function_name` or `FunctionName`
-* Lines less than 80 characters long
-* Indent: use 2 spaces (no tabs)
-* Assignment: Use `<-`. Do not use  `=` or `->`.
+* Lines less than 80 characters long (continue command on next line)
+* Indent: use 2 spaces (no tabs)    
+Tools -> Global Options -> Code in RStudio to change
+* Assignment: Use ` <- `. Do not use  ` = ` or ` -> `.    
+` = ` is used inside function calls - this is ok
 
 R Coding Style
 ========================================================
 
-* Curly Braces: first on same line, last on own line
+* Curly Braces: first on same line, last on own line. Space between ` ) ` and ` { `
 
 ```{r}
 my_fun <- function(x) {
@@ -198,3 +353,8 @@ incremental: true
 * Messages: `message("Message goes here")` should be used to generate messages.
     * Debugging messages are useful, but should be commented out when code is
       ready for production.
+
+
+It will be ok!
+========================================================
+![Eye-bleach](figure/it_will_be_ok.jpg)
