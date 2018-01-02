@@ -14,4 +14,8 @@
 
 # --- Part 2: APIs -------------------------------------------------------------
 #'  1. Create an account: https://market.mashape.com/explore
-#'  2. Navigate to the 
+#'  2. Navigate to https://market.mashape.com/andruxnet/random-famous-quotes
+#'  3. Famous Quotes API demo, GET requests
+#'  4. ProPublica API demo, fromJSON
+#'  5. Quandl demo, packages for APIs
+#'  6. Weather demo, more complicated data structures
