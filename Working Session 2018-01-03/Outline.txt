@@ -1,0 +1,17 @@
+# --- Part 1: Github -----------------------------------------------------------
+#'  1. Create repository on github
+#'  2. Configure github to work with RSA keys; create public key in RStudio
+#'  3. Clone repository to computer
+#'  4. Add Jingle Bells code to repository
+#'  5. Commit changes
+#'  6. Push changes
+#'  7. Everyone clones repository from Github
+#'  8. Everyone makes changes
+#'     In the meantime, I add everyone as an authorized user
+#'  9. Everyone pushes changes... and chaos ensues
+#' 10. Resolve merge conflicts as they pop up
+#' 
+
+# --- Part 2: APIs -------------------------------------------------------------
+#'  1. Create an account: https://market.mashape.com/explore
+#'  2. Navigate to the 
