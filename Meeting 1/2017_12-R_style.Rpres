@@ -312,16 +312,16 @@ R Coding Style
 ```{r, eval = F}
 # Author: Susan Vanderplas
 
-# ------------------------------------------------------
-# This file demonstrates the ideal layout of an R code 
-# file. This block is for a description of the code's
-# purpose and file contents. 
-# ------------------------------------------------------
+# -----------------------------------------------
+# This file demonstrates the ideal layout of an R 
+# code file. This block is for a description of 
+# the code's purpose and file contents. 
+# -----------------------------------------------
 
-# --- Packages -----------------------------------------
+# --- Packages ----------------------------------
 library(ggplot2)
 library(dplyr)
-# ------------------------------------------------------
+# -----------------------------------------------
 
 ```
 
@@ -330,8 +330,8 @@ R Coding Style
 
 ```{r, eval = F}
 myfun <- function(x) {
-  # This function returns the value that is passed in
-  # Basically, it does nothing.
+  # This function returns the value that is 
+  # passed in. Basically, it does nothing.
   # Args:
   #   x: The value to be returned
   # Returns: 
