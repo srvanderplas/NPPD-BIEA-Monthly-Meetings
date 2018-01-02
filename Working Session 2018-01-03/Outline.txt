@@ -19,3 +19,4 @@
 #'  4. ProPublica API demo, fromJSON
 #'  5. Quandl demo, packages for APIs
 #'  6. Weather demo, more complicated data structures
+#'  7. GitHub demo
