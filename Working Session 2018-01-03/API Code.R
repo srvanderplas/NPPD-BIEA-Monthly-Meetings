@@ -1,8 +1,8 @@
 # --- Setup --------------------------------------------------------------------
 pkgs <- installed.packages()
 
-require_pkgs <- c("dplyr", "tidyr", "magrittr", "lubridate", "stringr", "ggplot2", 
-              "jsonlite", "httr", "Quandl", "httpuv")
+require_pkgs <- c("dplyr", "tidyr", "magrittr", "lubridate", "stringr", 
+                  "ggplot2", "jsonlite", "httr", "Quandl", "httpuv")
 
 pkgs_to_install <- require_pkgs[!require_pkgs %in% pkgs]
 
