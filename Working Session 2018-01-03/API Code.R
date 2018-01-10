@@ -74,7 +74,7 @@ fromJSON(res)
 
 # --- ProPublica ---------------------------------------------------------------
 # Search ProPublica for public power nonprofits
-search_query <- "PUBLIC%20POWER"
+search_query <- "%2BPUBLIC%20%2BPOWER&state%5Bid%5D=NE"
 
 url <- paste0(
   "https://projects.propublica.org/nonprofits/api/v2/search.json?q=",
@@ -82,7 +82,7 @@ url <- paste0(
 
 # Method 1: Get/content()
 req <- GET(url = url)
-res <- content(req, type = "json")
+res <- content(req, type = "text")
 # Ugly list-data
 
 # Method 2: fromJSON
@@ -101,7 +101,8 @@ library(Quandl)
 
 Quandl.api_key(key)
 # Get 1 year's worth of data from the London Metal Exchange on Cobalt prices
-cobalt_data <- Quandl('LME/PR_CO', start_date = '2016-12-29', end_date = '2017-12-29')
+cobalt_data <- Quandl('LME/PR_CO', start_date = '2016-12-29', 
+                      end_date = '2017-12-29')
 
 library(ggplot2)
 qplot(x = Date, y = `Cash Buyer`, geom = "line", data = cobalt_data) + 
