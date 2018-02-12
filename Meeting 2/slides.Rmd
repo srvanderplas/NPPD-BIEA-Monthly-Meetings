@@ -11,13 +11,14 @@ output:
 
 
 ```{r setup, message = F, error = T, warning = F, echo = F}
-progress_report <- read.csv("\\\\cgownt08\\Common\\BI Embedded Agents\\2018-01-08_Course_Completion.csv", stringsAsFactors = F)
+progress_report <- read.csv("\\\\cgownt08\\Common\\BI Embedded Agents\\2018-01-22_Course_Completion.csv", stringsAsFactors = F)
 
 library(dplyr)
 library(purrr)
 library(tidyr)
 library(stringr)
 library(ggplot2)
+library(magrittr)
 ```
 ## Status Report
 
