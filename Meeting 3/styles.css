@@ -1,0 +1,3 @@
+div.quote-container blockquote {
+  quotes: "\00ab" "\00bb";
+}
