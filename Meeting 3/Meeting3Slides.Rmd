@@ -59,6 +59,7 @@ progress_report %>%
 - [`ggplot2` reference](http://ggplot2.tidyverse.org/reference/) (documentation, function references)
 - [Elegant graphics for data analysis](https://www.springer.com/us/book/9780387981413) (Hadley Wickham's book on `ggplot2`)
 - [Graphics in R](https://srvanderplas.github.io/NPPD-Analytics-Workshop/02.Graphics/02.guide.html) (Training materials from last years' R workshops)
+- [R graph catalog](https://github.com/jennybc/r-graph-catalog) - Shiny applet that shows graphs and ggplot2 code for the graph. [Applet](http://shiny.stat.ubc.ca/r-graph-catalog/) (link may not work), [Re-hosted app](http://srvanderplas.com/Shiny/RGraphCatalog/)
 
 ## The Grammar of Graphics
 
@@ -93,8 +94,8 @@ data <- data_frame(
 
 ## The Grammar of Graphics
 ```{r echo = F, fig.width = 6, fig.height = 4}
-qplot(xmin = time, xmax = time + 1, ymin = 0, ymax = onsite, 
-      geom = "rect", data = data, fill = I("grey"), color = I("black")) + 
+qplot(x = time, weight = onsite, geom = "bar", data = data, 
+      fill = I("grey"), color = I("black")) + 
   xlab("Time of Day") + ylab("# Onsite")
 ```
 
@@ -103,8 +104,8 @@ What are the aesthetics? What are the geometric objects?
 ## The Grammar of Graphics
 
 ```{r echo = T, fig.width = 6, fig.height = 4}
-qplot(xmin = time, xmax = time + 1, ymin = 0, ymax = onsite, 
-      geom = "rect", data = data, fill = I("grey"), color = I("black")) + 
+qplot(x = time, weight = onsite, geom = "bar", data = data, 
+      fill = I("grey"), color = I("black")) + 
   xlab("Time of Day") + ylab("# Onsite")
 ```
 
@@ -208,91 +209,6 @@ ggplot(data = diamonds, aes(x = factor(1), fill = color)) +
   coord_polar(theta = 'y')
 ```
 
-## Maps in `ggplot2`
-
-Maps provide an easy way to demonstrate the differences between aesthetics, geometric objects, layers, and scales.
-
-```{r echo = T, include = 2, message = F}
-states <- map_data("state")
-head(states)
-```
-
-## Maps in `ggplot2`
-
-What is needed to plot a basic map?
-
-- latitude/longitude points for boundaries
-- which boundary group the points belong to (e.g. state or region of a state)
-- the order to connect the points
-
-## A basic map
-
-What "geom" (geometric object) is used in this plot?
-
-```{r echo = T}
-qplot(long, lat, data = states)
-```
-
-## Order matters
-
-What "geom" (geometric object) is used in this plot?
-
-```{r echo = F}
-qplot(long, lat, geom = "line", data = states) + coord_map()
-```
-
-## A basic map
-
-
-What "geom" (geometric object) is used in this plot?
-```{r echo = F}
-qplot(long, lat, geom = "path", group = group, data = states) + coord_map()
-```
-
-## A basic map
-
-What "geom" (geometric object) is used in this plot?
-
-```{r echo = F}
-qplot(long, lat, group = group, 
-      fill = I("white"), color = I("black"), 
-      geom = "polygon", data = states) + coord_map()
-```
-
-## A basic map
-
-Polygons have filled inside space; lines just define the perimeter
-
-```{r echo = T, eval = F}
-qplot(long, lat, group = group, 
-      fill = I("white"), color = I("black"), 
-      geom = "polygon", data = states) + coord_map()
-```
-
-## Adding aesthetics
-
-We can add additional data to a map by joining state-level information to the map coordinates.
-
-```{r echo = T}
-statereg <- read.csv("https://bit.ly/2i0AFHK")
-head(statereg)
-```
-
-## Adding aesthetics
-
-```{r echo = T}
-state.class <- left_join(states, statereg, by = c("region" = "State"))
-head(state.class)
-```
-
-## Adding aesthetics
-
-```{r echo = T}
-qplot(long, lat, geom = "polygon", data = state.class, 
-      group = group, fill = StateGroups, color = I("black")) + 
-  coord_map() 
-```
-
 ## Example: Coursera Progress
 
 ```{r echo = T, message = F, warning = F}
@@ -318,33 +234,35 @@ progress <- lapply(csvs, function(x) {
 ```{r echo = T, message = F, warning = F}
 progress <- progress %>%
   bind_rows() %>%
-  filter(!External.Id %in% c("cabaler", "gajaspe", "kmhelgo")) %>%
+  # Remove people who have dropped out or aren't agents
+  filter(!External.Id %in% c("cabaler", "gajaspe", "kmhelgo", "jdrosen")) %>%
+  # Get variables of interest
   select(Name, Course, Overall.Progress, Completed, date) %>%
   # Add in 0s for all combinations of Name, Course, and date that don't appear
-  complete(Name, Course, date, fill = list(Overall.Progress = 0, Completed = "No")) %>%
-  # Clean up a bit
-  mutate(
+  complete(Name, Course, date, fill = list(Overall.Progress = 0, 
+                                           Completed = "No")) %>%
+  mutate(  # Clean up a bit
     Overall.Progress = ifelse(Completed == "Yes", 100, Overall.Progress),
     Course = str_replace(Course, "The Data Scientist(.*)", 
                          "The Data Scientist's Toolbox") %>%
       factor(levels = c("The Data Scientist's Toolbox", "R Programming", 
                         "Getting and Cleaning Data", "Exploratory Data Analysis",
-                        "Reproducible Research")))
+                        "Reproducible Research")))  # Set course order
 ```
 
 ## Example: Coursera Progress
 
-```{r echo = T, eval = T}
+```{r echo = T, eval = T, fig.width = 10, fig.height = 2.5}
 ggplot(data = progress) + 
   geom_line(aes(x = date, y = Overall.Progress, group = Name)) + 
-  facet_wrap(~Course)
+  facet_wrap(~Course, ncol = 5)
 ```
 
 
 ## Example: Coursera Progress
 
 <div class = "columns-2">
-```{r echo = F, fig.width = 4, fig.height = 6}
+```{r echo = F, fig.width = 5, fig.height = 5}
 ggplot(data = progress) + 
   geom_line(aes(x = date, y = Overall.Progress, group = Name)) + 
   facet_wrap(~Course, nrow = 3)
@@ -360,69 +278,73 @@ Most people
 </div>
 
 ## Example: Coursera Progress
+### Color lines by person
 
-```{r echo = T}
+```{r echo = T, fig.width = 10, fig.height = 2.5}
 ggplot(data = progress) + 
   geom_line(aes(x = date, y = Overall.Progress, color = Name)) + 
-  facet_wrap(~Course)
+  facet_wrap(~Course, ncol = 5)
 ```
 
 
 ## Example: Coursera Progress
+### Each person gets a plot
 
-```{r echo = T}
+```{r echo = T, fig.width = 10, fig.height = 3.5}
 ggplot(data = progress) + 
   geom_line(aes(x = date, y = Overall.Progress, color = Course)) + 
-  facet_wrap(~Name)
+  facet_wrap(~Name, ncol = 6)
 ```
 
 ## Example: Coursera Progress
+### Fill in the area beneath each line
 
-```{r echo = T, fig.width = 8, fig.height = 5, eval = F}
+```{r echo = F, eval = T, fig.width = 10, fig.height = 3.5}
 ggplot(data = progress) + 
   geom_ribbon(aes(x = date, ymin = 0, ymax = Overall.Progress, fill = Course),
               color = "black") + 
-  facet_wrap(~Name, nrow = 3, ncol = 5) + 
+  facet_wrap(~Name, ncol = 6) + 
   theme(legend.position = "bottom")
 ```
 
 ## Example: Coursera Progress
+### Fill in the area beneath each line
 
-```{r echo = F, fig.width = 8, fig.height = 5, eval = T}
+```{r echo = T, eval = F, fig.width = 10, fig.height = 3.5}
 ggplot(data = progress) + 
   geom_ribbon(aes(x = date, ymin = 0, ymax = Overall.Progress, fill = Course),
               color = "black") + 
-  facet_wrap(~Name, nrow = 3, ncol = 5) + 
+  facet_wrap(~Name, ncol = 6) + 
   theme(legend.position = "bottom")
 ```
 
 
 ## Example: Coursera Progress
+### Change the color scheme and move the legend
 
-```{r echo = T, eval = F}
+```{r echo = F, eval = T, fig.width = 10, fig.height = 5}
 ggplot(data = progress) + 
   geom_ribbon(aes(x = date, ymin = 0, ymax = Overall.Progress, fill = Course),
               color = "black") + 
-  facet_wrap(~Name) + 
+  facet_wrap(~Name, ncol = 5) + 
   guides(fill = guide_legend(nrow = 2)) + 
   theme(legend.position = c(1, 0), legend.justification = c(1, 0)) + 
   scale_fill_brewer(palette = "Paired")
   
 ```
 
-
 ## Example: Coursera Progress
-```{r echo = F, fig.width = 8, fig.height = 5}
+### Change the color scheme and move the legend
+
+```{r echo = T, eval = F, fig.width = 10, fig.height = 5}
 ggplot(data = progress) + 
   geom_ribbon(aes(x = date, ymin = 0, ymax = Overall.Progress, fill = Course)) + 
-  facet_wrap(~Name) + 
+  facet_wrap(~Name, ncol = 5) + 
   guides(fill = guide_legend(nrow = 2)) + 
   theme(legend.position = c(1, 0), legend.justification = c(1, 0)) + 
   scale_fill_brewer(palette = "Paired")
   
 ```
-
-
 
 # Q&A
 
@@ -457,16 +379,20 @@ I will be researching statistical methods for forensics:
     - I will probably be less available during business hours
     - I'm planning to check in most evenings after I put my son to bed    
     I'll adjust this after I get some sort of routine going long-term
+    
 - I will still be available on Slack (even during the day) and reachable by email
     - You can also call my cell phone (515) 509-6613 with urgent questions
-- Jason and I are committed to keeping this program going!
+    
+### Jason and I are committed to keeping this program going!
 
 ## So what now?
-
+### If you have a question or a problem with R
 - Start by asking around to see if other embedded agents can help
     - People with prior programming/data experience:    
     Scott 1, Scott 2, Derek, Mike, Ron, Lourdes
+    
 - Post to slack with your problem (Reproducible Examples, please!)
+
 - Email Susan (I will hopefully check email at least once a day)
 
 
@@ -495,7 +421,7 @@ ggplot(data = dat) +
 ```{r valentine-code, echo = T, eval = F}
 rfunc <- function(z) {
   2 - 2*sin(z) + sin(z) * sqrt(abs(cos(z))) / (sin(z) + 1.4)
-} # From Wolfram MathWorld' -'s page on heart Curves
+} # From Wolfram MathWorld's page on heart Curves
 
 # Polar functions usually go between 0 and 2*pi
 theta <- seq(0, 2*pi, length.out = 500)
