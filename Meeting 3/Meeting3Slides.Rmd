@@ -4,6 +4,7 @@ author: "Nebraska Public Power District"
 date: "February 14, 2018"
 output: 
   ioslides_presentation: 
+    self_contained: true
     logo: U:/Templates/Business report/nppd.jpg
     widescreen: yes
     css: styles.css
@@ -79,13 +80,41 @@ progress_report %>%
 
 ## The Grammar of Graphics
 
-We'll use the diamonds dataset included with `ggplot2` to demonstrate:
+(Made up data) Number of people on-site at CNS:
+```{r echo = T, fig.width = 6, fig.height = 4}
+data <- data_frame(
+  time = seq(0, 23, 1),
+  onsite = c( 30,  30,  30,  30,  45, 156, 
+             435, 530, 550, 552, 550, 555,
+             555, 543, 400, 314, 203,  85,
+              45,  42,  32,  30,  30,  30)
+)
+```
 
+## The Grammar of Graphics
 ```{r echo = F, fig.width = 6, fig.height = 4}
-data(diamonds)
+qplot(xmin = time, xmax = time + 1, ymin = 0, ymax = onsite, 
+      geom = "rect", data = data, fill = I("grey"), color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
+```
 
-qplot(carat, price, geom = "point", data = diamonds)
+What are the aesthetics? What are the geometric objects?
 
+## The Grammar of Graphics
+
+```{r echo = T, fig.width = 6, fig.height = 4}
+qplot(xmin = time, xmax = time + 1, ymin = 0, ymax = onsite, 
+      geom = "rect", data = data, fill = I("grey"), color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
+```
+
+
+## The Grammar of Graphics
+
+```{r echo = F, fig.width = 6, fig.height = 4, message = F, warning = F}
+qplot(x = time, y = onsite, 
+      geom = "line", data = data, color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
 ```
 
 What are the aesthetics? What are the geometric objects?
@@ -93,16 +122,35 @@ What are the aesthetics? What are the geometric objects?
 
 ## The Grammar of Graphics
 
-```{r echo = F, fig.width = 6, fig.height = 4}
-qplot(carat, price, color = color, geom = "point", data = diamonds) + 
-  scale_y_log10()
+```{r echo = T, fig.width = 6, fig.height = 4, message = F, warning = F}
+qplot(x = time, y = onsite, 
+      geom = "line", data = data, color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
+```
+
+## The Grammar of Graphics
+
+```{r echo = F, fig.width = 6, fig.height = 4, message = F, warning = F}
+qplot(x = time, ymin = 0, ymax = onsite, 
+      geom = "ribbon", data = data, fill = I("grey"), color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
 ```
 
 What are the aesthetics? What are the geometric objects?
 
+## The Grammar of Graphics
+
+```{r echo = T, fig.width = 6, fig.height = 4, message = F, warning = F}
+qplot(x = time, ymin = 0, ymax = onsite, 
+      geom = "ribbon", data = data, fill = I("grey"), color = I("black")) + 
+  xlab("Time of Day") + ylab("# Onsite")
+```
+
 ## `ggplot2`
 
 `ggplot2` has two main plotting functions: `qplot` (quickplot) and `ggplot`. 
+
+We'll use the diamonds dataset included with `ggplot2` to demonstrate.
 
 qplot makes assumptions about the geometric objects you want:
 
@@ -145,7 +193,20 @@ qplot(carat, price, data = diamonds) +
   ggtitle("Price of diamonds by weight in carats")
 ```
 
+## `ggplot2`
 
+```{r echo = T, eval = T, fig.width = 4, fig.height = 4}
+ggplot(data = diamonds, aes(x = factor(1), fill = color)) + 
+  geom_bar(width = 1, color = "black")
+```
+
+## `ggplot2`
+
+```{r echo = T, eval = T, fig.width = 4, fig.height = 4}
+ggplot(data = diamonds, aes(x = factor(1), fill = color)) + 
+  geom_bar(width = 1, color = "black") + 
+  coord_polar(theta = 'y')
+```
 
 ## Maps in `ggplot2`
 
@@ -283,7 +344,7 @@ ggplot(data = progress) +
 ## Example: Coursera Progress
 
 <div class = "columns-2">
-```{r echo = F}
+```{r echo = F, fig.width = 4, fig.height = 6}
 ggplot(data = progress) + 
   geom_line(aes(x = date, y = Overall.Progress, group = Name)) + 
   facet_wrap(~Course, nrow = 3)
@@ -367,7 +428,11 @@ ggplot(data = progress) +
 
 ## What R questions do you have for me?
 
-# Announcement
+# Announcements
+
+## Next Week
+
+Weather permitting, I will be in Columbus next week for the R Study Group (Wednesday, Feb 21, 8:30 - 9:30).
 
 ## Announcement
 
@@ -409,7 +474,7 @@ I will be researching statistical methods for forensics:
 
 ## Happy Valentine's Day!
 
-```{r valentine, echo = F, fig.width = 4, fig.height = 4}
+```{r valentine, echo = F, fig.width = 4, fig.height = 4, fig.align = "center"}
 rfunc <- function(z) {
   2 - 2*sin(z) + sin(z) * sqrt(abs(cos(z))) / (sin(z) + 1.4)
 }
@@ -420,6 +485,27 @@ dat <- data_frame(theta = theta, r = rfunc(theta),
                   x = r * cos(theta),
                   y = r * sin(theta))
 
+ggplot(data = dat) + 
+  geom_polygon(aes(x = x, y = y), fill = "red") + 
+  theme_minimal()
+```
+
+## Happy Valentine's Day!
+
+```{r valentine-code, echo = T, eval = F}
+rfunc <- function(z) {
+  2 - 2*sin(z) + sin(z) * sqrt(abs(cos(z))) / (sin(z) + 1.4)
+} # From Wolfram MathWorld' -'s page on heart Curves
+
+# Polar functions usually go between 0 and 2*pi
+theta <- seq(0, 2*pi, length.out = 500)
+
+# Convert from polar coordinates to x-y coordinates 
+dat <- data_frame(
+  theta = theta, r = rfunc(theta),
+  x = r * cos(theta), y = r * sin(theta))
+
+# Plot x and y coordinates using a polygon geom
 ggplot(data = dat) + 
   geom_polygon(aes(x = x, y = y), fill = "red") + 
   theme_minimal()
